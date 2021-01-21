@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- css -->
+    <link rel="stylesheet" href="./css/main.css">
+    <!-- awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo&family=Open+Sans&display=swap" rel="stylesheet">
+
+    <!-- плагины -->
+
+    <title>MMT</title>
+</head>
+
+<body>
+    <!-- modal for add Category-->
+    <div class="modal-add">
+        <div class="modal-add__close" data-select="close">
+            <span class="moda-add__close-text">CLOSE</span>
+            <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M66.83,64,127.41,3.41a2,2,0,0,0,0-2.82,2,2,0,0,0-2.82,0L64,61.17,3.41.59A2,2,0,0,0,.59.59a2,2,0,0,0,0,2.82L61.17,64,.59,124.59a2,2,0,0,0,0,2.82,2,2,0,0,0,2.82,0L64,66.83l60.59,60.58a2,2,0,0,0,2.82-2.82Z" />
+            </svg>
+        </div>
+        <div class="modal-add__title">Add New Category</div>
+        <div class="modal-add__inputs">
+            <input type="text" placeholder="Name Category" class="modal-add__input">
+            <button id="add-category" data-select="btn-add">Add</button>
+        </div>
+    </div>
+    <!-- modal for edit Category -->
+    <div class="modal-edit">
+        <div class="modal-edit__close" data-select="close">
+            <span class="moda-edit__close-text">CLOSE</span>
+            <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M66.83,64,127.41,3.41a2,2,0,0,0,0-2.82,2,2,0,0,0-2.82,0L64,61.17,3.41.59A2,2,0,0,0,.59.59a2,2,0,0,0,0,2.82L61.17,64,.59,124.59a2,2,0,0,0,0,2.82,2,2,0,0,0,2.82,0L64,66.83l60.59,60.58a2,2,0,0,0,2.82-2.82Z" />
+            </svg>
+        </div>
+        <div class="modal-edit__title">Edit a Category</div>
+        <div class="modal-edit__inputs">
+            <input type="text" placeholder="Name Category" class="modal-edit__input">
+            <button id="edit-category" data-select="btn-edit">edit</button>
+        </div>
+    </div>
+     
+
+    <div class="burger" id="burger" data-select="burger">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="pos-wrapper">
+        <aside class="aside">
+            <div id="close" class="close" data-select="close"><span class="close__text">CLOSE</span>
+                <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M66.83,64,127.41,3.41a2,2,0,0,0,0-2.82,2,2,0,0,0-2.82,0L64,61.17,3.41.59A2,2,0,0,0,.59.59a2,2,0,0,0,0,2.82L61.17,64,.59,124.59a2,2,0,0,0,0,2.82,2,2,0,0,0,2.82,0L64,66.83l60.59,60.58a2,2,0,0,0,2.82-2.82Z" />
+                </svg>
+            </div>
+            <h2 class="aside__title">
+                MY MAXIMAL TODOLIST
+            </h2>
+            <ul class="aside__menu">
+                <!-- <li class="aside__menu-item"><a href="#" class="aside__menu-link active">JS Code</a>
+                    <div class="aside__menu-item-btns">
+                        <div class="aside__menu-item-edit" title="edit"><i class="fas fa-pen"></i></div>
+                        <div class="aside__menu-item-delete" title="delete"><i class="fas fa-times"></i></div>
+                    </div>
+                </li> -->
+            </ul>
+            <div class="aside__btns">
+                <div class="aside__btns-item" id="delEd">Delete/edit</div>
+                <div class="aside__btns-item" id="clear">Clear</div>
+            </div>
+            <div class="aside__add-btn" id="add" title="add" data-select="add">
+                <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+                    <path style="
+                      opacity:1;
+                      fill-opacity:1;
+                    " d="
+                     M 512 150C 512 150 512 487 512 487C 512 487 850 487 850 487C 850 487 850 512 850 512C 850 512 512 512 512 512C 512 512 512 850 512 850C 512 850 487 850 487 850C 487 850 487 512 487 512C 487 512 150 512 150 512C 150 512 150 487 150 487C 150 487 487 487 487 487C 487 487 487 150 487 150C 487 150 512 150 512 150
+                    " transform="">
+                    </path>
+                </svg>
+            </div>
+        </aside>
+    </div>
+
+    <section class="main">
+        <div class="main__title">
+            JS Code
+        </div>
+        <div class="main__container">
+            <div class="main__item">
+                <div class="main__item-code">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quos provident voluptatem repudiandae
+                    porro! Corrupti eos repellendus dolorum at reprehenderit.
+                </div>
+                <div class="main__item-title">array.map()
+                    <div class="main__item-date">20.1.2021</div>
+                </div>
+            </div>
+            <div class="main__item">
+                <div class="main__item-code">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quos provident voluptatem repudiandae
+                    porro! Corrupti eos repellendus dolorum at reprehenderit.
+                </div>
+                <div class="main__item-title">array.map()
+                    <div class="main__item-date">20.1.2021</div>
+                </div>
+            </div>
+            <div class="main__item">
+                <div class="main__item-code">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quos provident voluptatem repudiandae
+                    porro! Corrupti eos repellendus dolorum at reprehenderit.
+                </div>
+                <div class="main__item-title">array.map()
+                    <div class="main__item-date">20.1.2021</div>
+                </div>
+            </div>
+            <div class="main__item">
+                <div class="main__item-code">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quos provident voluptatem repudiandae
+                    porro! Corrupti eos repellendus dolorum at reprehenderit.
+                </div>
+                <div class="main__item-title">array.map()
+                    <div class="main__item-date">20.1.2021</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="main-menu">
+        <ul class="main-menu__menu">
+            <li class="main-menu__item"><button class="main-menu__button" data-select="add">add</button></li>
+            <li class="main-menu__item"><button class="main-menu__button" data-select="delete">delete</button></li>
+            <li class="main-menu__item"><button class="main-menu__button" data-select="edit">edit</button></li>
+            <li class="main-menu__item"><button class="main-menu__button" data-select="clear">clear</button></li>
+        </ul>
+    </nav>
+    <script src="./js/script.js"></script>
+
+</body>
+
+</html>
