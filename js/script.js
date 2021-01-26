@@ -26,9 +26,9 @@ const modalOpenContactButton = document.querySelector('.modal-open-contact__butt
 const mainTitle = document.querySelector('.main__title');
 //contentMainBtns
 const addContentBtn = document.querySelector('#addContent');
-const deleteContentBtn = document.querySelector('#deleteContent');
-const editContentBtn = document.querySelector('#editContent');
 const clearContentBtn = document.querySelector('#clearContent');
+const topContent = document.querySelector('#topContent');
+const downContent = document.querySelector('#downContent');
 //add modal
 const modalAddContact = document.querySelector('.modal-add-contact');
 const modalAddContactClose = document.querySelector('.modal-add-contact__close');
@@ -40,6 +40,7 @@ let categoryBtns = [];
 let editId = null;
 const activeCategory = null;
 let idContent = null;
+let sortContentArr = [];
 // menu
 burger.addEventListener('click', edAside);
 close.addEventListener('click', edAside);
@@ -71,6 +72,11 @@ addContentBtn.addEventListener('click', () => {
     });
     modalAddContactButton.addEventListener('click', addNewContent);
 });
+
+clearContentBtn.addEventListener('click', clearContent);
+
+topContent.addEventListener('click', contentSort);
+downContent.addEventListener('click', contentSort);
 //функции для открывание, закрывание меню слева
 function edAside() {
     const atr = this.getAttribute('data-select');
@@ -96,6 +102,7 @@ function edAside() {
     }
 
 }
+
 //функция для изменения стилей
 function funAside(opacity, pointerEvents, left, burgerOp, burgerPo) {
     burger.style.opacity = burgerOp;
@@ -376,37 +383,86 @@ function editContent() {
 }
 
 function addNewContent() {
-   if(modalAddContactInput.value === ''){
-       return modalAddContactInput.style.background = 'rgba(231, 76, 60, .5)';
-   }
-   else {
-    modalAddContactInput.style.background = 'rgba(76, 87, 88, 0.9)'
+    if (modalAddContactInput.value === '') {
+        return modalAddContactInput.style.background = 'rgba(231, 76, 60, .5)';
+    } else {
+        modalAddContactInput.style.background = 'rgba(76, 87, 88, 0.9)'
+        const strId = localStorage.getItem('activeItem');
+        const newId = strId.split('').splice(1).join('');
+        const strObj = localStorage.getItem(+newId);
+        const obj = JSON.parse(strObj);
+        const date = new Date();
+        let y = date.getFullYear();
+        let m = date.getMonth() + 1;
+        let d = date.getDate();
+
+        if (m < 10) m = '0' + m;
+        if (d < 10) d = '0' + d;
+        let fullDate = d + '.' + m + '.' + y;
+        obj.content.push({
+            title: modalAddContactInput.value,
+            value: modalAddContactTextarea.value,
+            date: fullDate,
+            id: +date,
+        });
+        localStorage.setItem(newId, JSON.stringify(obj));
+        funAside(0, 'none', -600, 1, 'all');
+        //убираем модальку
+        modalAddContact.classList.add('hidden');
+        modalAddContactInput.value = '';
+        modalAddContactTextarea.value = '';
+        getContent(strId);
+    }
+}
+
+function clearContent() {
     const strId = localStorage.getItem('activeItem');
     const newId = strId.split('').splice(1).join('');
     const strObj = localStorage.getItem(+newId);
     const obj = JSON.parse(strObj);
-    const date = new Date();
-    let y = date.getFullYear();
-    let m = date.getMonth() + 1;
-    let d = date.getDate();
-    
-    if(m < 10) m = '0' + m;
-    if(d < 10) d = '0' + d;
-    let fullDate = d + '.' + m + '.' + y;
-    obj.content.push({
-        title: modalAddContactInput.value,
-        value: modalAddContactTextarea.value,
-        date: fullDate,
-        id: +date,
-    });
+    obj.content = [];
     localStorage.setItem(newId, JSON.stringify(obj));
-    funAside(0, 'none', -600, 1, 'all');
-    //убираем модальку
-    modalAddContact.classList.add('hidden');
-    modalAddContactInput.value = '';
-    modalAddContactTextarea.value = '';
     getContent(strId);
-   }
+}
+
+function contentSort() {
+    const atr = this.getAttribute('data-select');
+    const strId = localStorage.getItem('activeItem');
+    const newId = strId.split('').splice(1).join('');
+    const strObj = localStorage.getItem(+newId);
+    const obj = JSON.parse(strObj);
+    mainContainer.innerHTML = '';
+    sortContentArr = [];
+    if (atr === 'sortNew') {
+        obj.content.sort((a, b) => b.id - a.id).map(item => sortContentArr.push(item));
+        sortContentArr.forEach(item => {
+            let menuItem = document.createElement('div');
+            menuItem.className = 'main__item';
+            menuItem.id = item.id;
+            menuItem.innerHTML = `
+            <textarea class="main__item-code">${item.value}</textarea>
+            <div class="main__item-title">
+            ${item.title}
+            <div class="main__item-date">${item.date}</div>
+            </div>`;
+            mainContainer.appendChild(menuItem);
+        })
+    }else {
+        obj.content.sort((a, b) => a.id - b.id).map(item => sortContentArr.push(item));
+        sortContentArr.forEach(item => {
+            let menuItem = document.createElement('div');
+            menuItem.className = 'main__item';
+            menuItem.id = item.id;
+            menuItem.innerHTML = `
+            <textarea class="main__item-code">${item.value}</textarea>
+            <div class="main__item-title">
+            ${item.title}
+            <div class="main__item-date">${item.date}</div>
+            </div>`;
+            mainContainer.appendChild(menuItem);
+        })
+    }
+    MainItem();
 }
 //функции которые вызываються при загрузки страниц
 addCategory();
